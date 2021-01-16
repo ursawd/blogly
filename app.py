@@ -16,3 +16,10 @@ from flask_debugtoolbar import DebugToolbarExtension
 app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 app.config["SECRET_KEY"] = "SECRET!"
 debug = DebugToolbarExtension(app)
+
+
+@app.route("/")
+def list_users():
+    """List Users"""
+    users = User.query.all()
+    return render_template("list-users.html", users=users)
