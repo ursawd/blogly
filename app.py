@@ -19,7 +19,27 @@ debug = DebugToolbarExtension(app)
 
 
 @app.route("/")
+def inital_page():
+    """Start of routes"""  # TODO: to be addressed later per instructions
+    return redirect("/users")
+
+
+@app.route("/users")
 def list_users():
     """List Users"""
     users = User.query.all()
     return render_template("list-users.html", users=users)
+
+
+@app.route("/add")
+def add_user_form():
+    """Show add user form"""
+    return render_template("add-user.html")
+
+
+@app.route("/add", methods=["POST"])
+def add_user():
+    """Add New User"""
+
+    #! redirect?
+    return render_template("add-user.html")
