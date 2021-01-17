@@ -18,4 +18,4 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     first_name = db.Column(db.String(20), nullable=False)
     last_name = db.Column(db.String(20), nullable=False)
-    image_url = db.Column(db.String(150), nullable=False, default="flask-blogly\imgs\avatar-generic.png")
+    image_url = db.Column(db.String(150), nullable=False, default="/static/avatar-generic.png")
