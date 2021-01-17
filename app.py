@@ -43,18 +43,25 @@ def add_user_form():
 @app.route("/users/new", methods=["POST"])
 def add_user():
     """Add New User"""
-    users = User.query.all()
-    #! redirect?
+    fname = request.form["fname"]
+    lname = request.form["lname"]
+    # imgurl = request.form["imgurl"]
+    # ? ---development ----
+    # ? set imgurl to default no matter what the user inputs
+    imgurl = "/static/avatar-generic.png"
+    # ? -------------------
+    user = User(first_name=fname, last_name=lname, image_url=imgurl)
+    db.session.add(user)
+    db.session.commit()
     return redirect("/users")
 
 
-# # Route E
-# @app.route("/users/<int:user_id>")
-# def detail(user_id):
-#     """Show user detail"""
-#     user = User.query.get(user_id)
-
-#     return render_template("detail-user.html", user=user)
+# Route E
+@app.route("/users/<int:user_id>")
+def detail(user_id):
+    """Show user detail"""
+    user = User.query.get(user_id)
+    return render_template("detail-user.html", user=user)
 
 
 # # Route F
@@ -73,9 +80,9 @@ def add_user():
 #     return "Route G"
 
 
-# # Route H
-# @app.route("/users/<int:user_id>/delete")
-# def detail(user_id):
-#     """Delete user"""
+# Route H
+@app.route("/users/<int:user_id>/delete")
+def delete(user_id):
+    """Delete user"""
 
-#     return render_template("")
+    return redirect("/users")
