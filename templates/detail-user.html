@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 <!-- replacement block "title" -->
 {% block title %}
-<title>User Detaik</title>
+<title>User Detail</title>
 {% endblock %}
 <!-- replacement block "content" -->
 {% block content%}
@@ -9,7 +9,7 @@
 <div class="detail">
     <img src="{{user.image_url}}" id="user-pic" alt="avatar" />
     <h2>{{user.first_name}} {{user.last_name}}</h2>
-    <a href="/edit"><button type="button">Edit</button></a>
+    <a href="/users/{{user.id}}/edit"><button type="button">Edit</button></a>
     <a href="/users/{{user.id}}/delete"
         ><button type="button">Delete</button></a
     >
