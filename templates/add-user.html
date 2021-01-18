@@ -2,15 +2,31 @@
 <title>Add User</title>
 {% endblock %} {% block content%}
 <div id="add-user-form">
-    <h1>Create a user</h1>
+    <h2>Create a user</h2>
     <form action="/users/new" method="post">
         <label for="fname">First Name</label>
-        <input type="text" name="fname" id="fname" />
+        <input
+            type="text"
+            name="fname"
+            id="fname"
+            placeholder="Enter a first name"
+        />
         <label for="lname">Last Name</label>
-        <input type="text" name="lname" id="lname" />
+        <input
+            type="text"
+            name="lname"
+            id="lname"
+            placeholder="Enter a last name"
+        />
         <label for="imgurl"> Image URL</label>
-        <input type="text" name="imgurl" id="imgurl" />
-        <input type="submit" value="Add" />
+        <input
+            type="text"
+            name="imgurl"
+            id="imgurl"
+            placeholder="Provide an image of this user"
+        />
+        <!-- <input type="submit" value="Add" /> -->
+        <button type="submit">Add</button>
     </form>
 </div>
 {% endblock %}

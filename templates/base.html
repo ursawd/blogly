@@ -7,8 +7,14 @@
         <link rel="stylesheet" href="/static/app.css" />
     </head>
     <body>
-        {% block content %}
-        <!-- Inserted content goes here -->
-        {% endblock %}
+        <div id="main">
+            <div class="center">
+                <h1>Blogly</h1>
+                <a href="/users">Return to user list</a>
+                {% block content %}
+                <!-- Inserted content goes here -->
+                {% endblock %}
+            </div>
+        </div>
     </body>
 </html>

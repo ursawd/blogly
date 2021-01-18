@@ -68,7 +68,8 @@
       """Pet."""
 
       __tablename__ = "pets"
-
+  >Note: Column below is capitalized
+  
       id = db.Column(db.Integer, primary_key=True, autoincrement=True)
       name = db.Column(db.String(50), nullable=False, unique=True)
       species = db.Column(db.String(30), nullable=True)

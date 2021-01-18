@@ -1,3 +1,6 @@
+* {
+    color: white;
+}
 #user-pic {
     width: 100px;
     height: auto;
@@ -14,6 +17,38 @@ select {
     border-radius: 4px;
     box-sizing: border-box;
 }
-#add-user-form {
-    width: 33%;
+
+#main {
+    display: flex;
+    justify-content: center;
+}
+.center {
+    background-color: rgb(58, 9, 233);
+    min-height: 50%;
+    width: 40%;
+    padding: 20px;
+}
+li {
+    padding-top: 5px;
+}
+
+h1 {
+    margin-bottom: 5px;
+}
+
+button {
+    background-color: black;
+}
+input[type="text"] {
+    color: #000;
+}
+.detail {
+    display: inline-block;
+}
+h2#detail-name {
+    margin-bottom: 15px;
+}
+#edit-btns {
+    margin-bottom: 15px;
+    margin-top: 0;
 }

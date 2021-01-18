@@ -5,13 +5,21 @@
 {% endblock %}
 <!-- replacement block "content" -->
 {% block content%}
-<h1>User Detail Page</h1>
-<div class="detail">
-    <img src="{{user.image_url}}" id="user-pic" alt="avatar" />
-    <h2>{{user.first_name}} {{user.last_name}}</h2>
-    <a href="/users/{{user.id}}/edit"><button type="button">Edit</button></a>
-    <a href="/users/{{user.id}}/delete"
-        ><button type="button">Delete</button></a
-    >
+<h2>User Detail Page</h2>
+<div class="detail-container">
+    <div class="detail">
+        <img src="{{user.image_url}}" id="user-pic" alt="avatar" />
+    </div>
+    <div class="detail">
+        <h2 id="detail-name">{{user.first_name}} {{user.last_name}}</h2>
+        <div id="edit-btns">
+            <a href="/users/{{user.id}}/edit"
+                ><button type="button">Edit</button></a
+            >
+            <a href="/users/{{user.id}}/delete"
+                ><button type="button">Delete</button></a
+            >
+        </div>
+    </div>
 </div>
 {% endblock %}
