@@ -1,5 +1,17 @@
 # SQLAlchemy Startup Steps
 
+## Initialization
+
+- ### In venv
+
+  - `pip install psycopg2-binary`
+  - `pip install flask-sqlalchemy`
+
+- ### For checking model, etc.
+
+  - (venv) λ: ipython
+  - In[1]: %run app.py
+
 ## App (app.py)
 
     from flask import Flask, request, redirect, render_template
