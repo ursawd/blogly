@@ -19,3 +19,8 @@ class User(db.Model):
     first_name = db.Column(db.String(20), nullable=False)
     last_name = db.Column(db.String(20), nullable=False)
     image_url = db.Column(db.String(150), nullable=False, default="/static/avatar-generic.png")
+
+    @property
+    def full_name(self):
+        """ Return full name """
+        return self.first_name + " " + self.last_name
