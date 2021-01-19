@@ -27,8 +27,8 @@ def inital_page():
 # Route B
 @app.route("/users")
 def list_users():
-    """List Users"""
-    users = User.query.all()
+    """List Users ordered by last name then first name"""
+    users = User.query.order_by(User.last_name, User.first_name).all()
     return render_template("list-users.html", users=users)
 
 
