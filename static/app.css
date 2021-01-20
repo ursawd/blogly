@@ -1,4 +1,7 @@
 * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
     color: white;
 }
 #user-pic {
@@ -25,30 +28,29 @@ select {
 .center {
     background-color: rgb(58, 9, 233);
     min-height: 50%;
-    width: 40%;
+    width: 33%;
     padding: 20px;
 }
 li {
     padding-top: 5px;
 }
 
-h1 {
-    margin-bottom: 5px;
-}
-
 button {
     background-color: black;
+    margin-top: 10px;
+    margin-right: 5px;
 }
 input[type="text"] {
     color: #000;
 }
 .detail {
     display: inline-block;
+    min-height: 100px;
+    width: 125px;
 }
-h2#detail-name {
-    margin-bottom: 15px;
+div.detail-container {
+    display: flex;
 }
-#edit-btns {
-    margin-bottom: 15px;
-    margin-top: 0;
+h2.form-name {
+    margin: 10px 0 10px 0;
 }
