@@ -46,8 +46,9 @@ input[type="text"] {
 .detail {
     display: inline-block;
     min-height: 100px;
-    width: 125px;
+    min-width: 125px;
 }
+
 div.detail-container {
     display: flex;
 }
