@@ -7,10 +7,10 @@ from app import app
 db.drop_all()
 db.create_all()
 
-phil = User(first_name="Philip", last_name="Bailey", image_url="/static/avatar-generic.png")
-jason = User(first_name="Jason", last_name="Stone", image_url="/static/pic1.jfif")
-john = User(first_name="John", last_name="Doe", image_url="/static/avatar-generic.png")
-jane = User(first_name="Jane", last_name="Doe", image_url="/static/jane.jpg")
+phil = User(first_name="Philip", last_name="Bailey", image_url="/static/imgs/avatar-generic.png")
+jason = User(first_name="Jason", last_name="Stone", image_url="/static/imgs/pic1.jfif")
+john = User(first_name="John", last_name="Doe", image_url="/static/imgs/avatar-generic.png")
+jane = User(first_name="Jane", last_name="Doe", image_url="/static/imgs/jane.jpg")
 
 db.session.add(phil)
 db.session.add(john)
