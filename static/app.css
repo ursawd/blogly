@@ -55,3 +55,12 @@ div.detail-container {
 h2.form-name {
     margin: 10px 0 10px 0;
 }
+textarea {
+    width: 100%;
+    overflow: hidden;
+    color: #000;
+}
+#by {
+    font-style: italic;
+    margin: 5px 0;
+}

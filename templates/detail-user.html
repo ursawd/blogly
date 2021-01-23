@@ -20,6 +20,17 @@
                 ><button type="button">Delete</button></a
             >
         </div>
+        <div id="detail-posts">
+            <h3>Posts</h3>
+            <ul>
+                {% for post in user.post_prox%}
+                <a href="/posts/{{user.id}}"><li>{{post.title}}</li></a>
+                {% endfor%}
+            </ul>
+            <a href="/users/{{user.id}}/posts/new"
+                ><button type="button">Add Post</button></a
+            >
+        </div>
     </div>
 </div>
 {% endblock %}

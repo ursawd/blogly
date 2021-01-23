@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+<!-- replacement block "title" -->
+{% block title %}
+<title>Post</title>
+{% endblock %}
+<!-- replacement block "content" -->
+{% block content%}
+<h2 class="form-name">{{post.title}}</h2>
+<p>{{post.content}}</p>
+<p id="by">By: {{post.user_prox.full_name}}</p>
+
+<div id="edit-btns">
+    <a href="#"><button type="button">Cancel</button></a>
+    <a href="#"><button type="button">Edit</button></a>
+    <a href="#"><button type="button">Delete</button></a>
+</div>
+
+{% endblock %}
