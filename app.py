@@ -6,7 +6,7 @@ from models import db, connect_db, User, Post
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///blogly"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SQLALCHEMY_ECHO"] = True
+# app.config["SQLALCHEMY_ECHO"] = True
 
 connect_db(app)
 db.create_all()
@@ -48,7 +48,7 @@ def add_user():
     # imgurl = request.form["imgurl"]
     # ? ---development ----
     # ? set imgurl to default no matter what the user inputs
-    imgurl = "/static/avatar-generic.png"
+    imgurl = "/static/imgs/avatar-generic.png"
     # ? -------------------
     user = User(first_name=fname, last_name=lname, image_url=imgurl)
     db.session.add(user)
@@ -117,6 +117,7 @@ def new_post(user_id):
     title = request.form["title"]
     content = request.form["content"]
     fk = user_id
+    print(">>>>>>>>>>>>>>>", user, flush=True)
     post = Post(title=title, content=content, user_id=fk)
     db.session.add(post)
     db.session.commit()
@@ -129,3 +130,12 @@ def show_post_form(post_id):
     """Display post"""
     post = Post.query.get(post_id)
     return render_template("detail-post.html", post=post)
+
+
+# Route P4
+@app.route("/posts/<int:post_id>/edit")
+def show_post_edit(post_id):
+    """Display post edit form"""
+    post = Post.query.get(post_id)
+    # display user edit form
+    return render_template("edit-post.html", post=post)

@@ -19,8 +19,8 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     first_name = db.Column(db.String(20), nullable=False)
     last_name = db.Column(db.String(20), nullable=False)
-    image_url = db.Column(db.String(150), nullable=False, default="/static/avatar-generic.png")
-    post_prox = db.relationship("Post")
+    image_url = db.Column(db.String(150), nullable=False, default="/static/imgs/avatar-generic.png")
+    post_prox = db.relationship("Post", cascade="all, delete")
 
     def __repr__(self):
         return f"id ={self.id} first_name={self.first_name} last_name={self.last_name} image_url={self.image_url}"
