@@ -1,7 +1,8 @@
 """Blogly application."""
 
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, flash
 from models import db, connect_db, User, Post
+from datetime import datetime
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///blogly"
@@ -20,8 +21,9 @@ debug = DebugToolbarExtension(app)
 # Route A
 @app.route("/")
 def inital_page():
-    """Start of routes"""  # TODO: to be addressed later per instructions
-    return redirect("/users")
+    """Start of routes / home page"""
+    posts = Post.query.order_by(Post.created_at.desc()).limit(5).all()
+    return render_template("home.html", posts=posts)
 
 
 # Route B
@@ -45,14 +47,15 @@ def add_user():
     """Add New User"""
     fname = request.form["fname"]
     lname = request.form["lname"]
-    # imgurl = request.form["imgurl"]
     # ? ---development ----
     # ? set imgurl to default no matter what the user inputs
     imgurl = "/static/imgs/avatar-generic.png"
+    # imgurl = request.form["imgurl"]
     # ? -------------------
     user = User(first_name=fname, last_name=lname, image_url=imgurl)
     db.session.add(user)
     db.session.commit()
+    flash(f"New user added: {user.full_name}")
     return redirect("/users")
 
 

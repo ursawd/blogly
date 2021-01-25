@@ -11,7 +11,13 @@
             <div class="center">
                 <h1>Blogly</h1>
                 <a href="/users">Return to user list</a>
-                {% block content %}
+                {% with messages = get_flashed_messages() %} {% if messages %}
+                <ul class="flashes">
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %} {% endwith %} {% block content %}
                 <!-- Inserted content goes here -->
                 {% endblock %}
             </div>
