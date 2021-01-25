@@ -67,4 +67,6 @@ textarea {
 .flashes {
     color: red;
     background-color: orange;
+    font-size: large;
+    font-weight: bold;
 }

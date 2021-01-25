@@ -2,7 +2,7 @@
 
 ## ERD
 
- ![ERD](misc/ERD.png)
+ ![ERD](misc/ERD Part 1.png)
 
 ## Flowchart
 
