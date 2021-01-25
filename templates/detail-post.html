@@ -10,9 +10,13 @@
 <p id="by">By: {{post.user_prox.full_name}}</p>
 
 <div id="edit-btns">
-    <a href="#"><button type="button">Cancel</button></a>
+    <a href="/users/{{post.user_prox.id}}"
+        ><button type="button">Cancel</button></a
+    >
     <a href="/posts/{{post.id}}/edit"><button type="button">Edit</button></a>
-    <a href="#"><button type="button">Delete</button></a>
+    <a href="/posts/{{post.id}}/delete"
+        ><button type="button">Delete</button></a
+    >
 </div>
 
 {% endblock %}

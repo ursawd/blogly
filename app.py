@@ -77,7 +77,7 @@ def edit_form(user_id):
 
 # Route G
 @app.route("/users/<int:user_id>/edit", methods=["POST"])
-def update(user_id):
+def update_user(user_id):
     """Process user edit form"""
     user = User.query.get(user_id)
     user.first_name = request.form["fname"]
@@ -139,3 +139,31 @@ def show_post_edit(post_id):
     post = Post.query.get(post_id)
     # display user edit form
     return render_template("edit-post.html", post=post)
+
+
+# Route P5
+@app.route("/posts/<int:post_id>/edit", methods=["POST"])
+def update_post(post_id):
+    """Process psot edit form"""
+    post = Post.query.get(post_id)
+    post.title = request.form["title"]
+    post.content = request.form["content"]
+
+    db.session.add(post)
+    db.session.commit()
+    return redirect(f"/posts/{post.id}")
+
+
+# Route P6
+@app.route("/posts/<int:post_id>/delete")
+def delete_post(post_id):
+    """Delete user"""
+    # retrieve user record matching passed in id
+    post = Post.query.get(post_id)
+    user_id = post.user_prox.id
+    # match record and delete
+    db.session.delete(post)  # uses record (not record id) to delete
+    db.session.commit()
+    # import pdb
+    # pdb.set_trace()
+    return redirect(f"/users/{user_id}")
