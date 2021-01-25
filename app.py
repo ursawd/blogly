@@ -18,6 +18,14 @@ app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 app.config["SECRET_KEY"] = "SECRET!"
 debug = DebugToolbarExtension(app)
 
+
+@app.errorhandler(404)
+# inbuilt function which takes error as parameter
+def not_found(e):
+    # defining function
+    return render_template("404.html")
+
+
 # Route A
 @app.route("/")
 def inital_page():
