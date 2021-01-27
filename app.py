@@ -80,7 +80,6 @@ def edit_form(user_id):
     """Edit user"""
     # retrieve user record matching passed in id
     user = User.query.get(user_id)
-
     # display user edit form
     return render_template("edit-user.html", user=user)
 
@@ -93,7 +92,6 @@ def update_user(user_id):
     user.first_name = request.form["fname"]
     user.last_name = request.form["lname"]
     user.image_url = request.form["imgurl"]
-
     db.session.add(user)
     db.session.commit()
     return redirect("/users")
@@ -105,9 +103,11 @@ def delete(user_id):
     """Delete user"""
     # retrieve user record matching passed in id
     user = User.query.get(user_id)
+    name = user.full_name
     # match record and delete
     db.session.delete(user)  # uses record (not record id) to delete
     db.session.commit()
+    flash(f"User deleted: {name}")
     return redirect("/users")
 
 
@@ -127,7 +127,6 @@ def new_post(user_id):
     title = request.form["title"]
     content = request.form["content"]
     fk = user_id
-    print(">>>>>>>>>>>>>>>", user, flush=True)
     post = Post(title=title, content=content, user_id=fk)
     db.session.add(post)
     db.session.commit()
@@ -154,11 +153,10 @@ def show_post_edit(post_id):
 # Route P5
 @app.route("/posts/<int:post_id>/edit", methods=["POST"])
 def update_post(post_id):
-    """Process psot edit form"""
+    """Process post edit form"""
     post = Post.query.get(post_id)
     post.title = request.form["title"]
     post.content = request.form["content"]
-
     db.session.add(post)
     db.session.commit()
     return redirect(f"/posts/{post.id}")
@@ -174,6 +172,4 @@ def delete_post(post_id):
     # match record and delete
     db.session.delete(post)  # uses record (not record id) to delete
     db.session.commit()
-    # import pdb
-    # pdb.set_trace()
     return redirect(f"/users/{user_id}")
