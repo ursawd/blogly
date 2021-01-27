@@ -1,7 +1,7 @@
 """Blogly application."""
 
 from flask import Flask, request, redirect, render_template, flash
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag
 from datetime import datetime
 
 app = Flask(__name__)
@@ -173,3 +173,10 @@ def delete_post(post_id):
     db.session.delete(post)  # uses record (not record id) to delete
     db.session.commit()
     return redirect(f"/users/{user_id}")
+
+
+# Route MM1
+@app.route("/tags")
+def list_tags():
+    tags = Tag.query.all()
+    return render_template("listtags.html", tags=tags)
