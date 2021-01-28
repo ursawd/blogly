@@ -2,5 +2,16 @@
 <title>Add Tag</title>
 {% endblock%} {% block content %}
 <h2>Create a tag</h2>
-
-{% endblock
+<form action="/tags/new" method="post">
+    <label for="tagname">Name</label>
+    <input
+        type="text"
+        name="tagname"
+        id="tagname"
+        placeholder="Enter a name for the tag"
+        autofocus
+    />
+    <a href="/tags"><button type="button">Cancel</button></a>
+    <button type="submit">Add</button>
+</form>
+{% endblock %}

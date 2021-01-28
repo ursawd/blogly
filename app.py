@@ -22,6 +22,7 @@ debug = DebugToolbarExtension(app)
 @app.errorhandler(404)
 # inbuilt function which takes error as parameter
 def not_found(e):
+    print(e)
     return render_template("404.html")
 
 
@@ -178,5 +179,64 @@ def delete_post(post_id):
 # Route MM1
 @app.route("/tags")
 def list_tags():
+    """Display tags"""
     tags = Tag.query.all()
     return render_template("listtags.html", tags=tags)
+
+
+# Route MM2
+@app.route("/tags/new")
+def add_tag():
+    """Add a tag"""
+    return render_template("addtag.html")
+
+
+# Route MM3
+@app.route("/tags/new", methods=["POST"])
+def process_add_tag():
+    """Process add a tag"""
+    tag = request.form["tagname"]
+    tagname = Tag(name=tag)
+    db.session.add(tagname)
+    db.session.commit()
+    return redirect("/tags")
+
+
+# Route MM4
+@app.route("/tags/<int:tagid>")
+def show_tag(tagid):
+    """Show tag info"""
+    tag = Tag.query.get(tagid)
+    posts = tag.posts
+    return render_template("showtag.html", tag=tag, posts=posts)
+
+
+# Route MM5
+@app.route("/tags/<int:tagid>/delete")
+def delete_tag(tagid):
+    """Delete a tag"""
+    # delete tag from tags table
+    # automatically deletes entries in PostTag table
+    tag = Tag.query.get(tagid)
+    db.session.delete(tag)
+    db.session.commit()
+    return redirect("/tags")
+
+
+# Route MM6
+@app.route("/tags/<int:tagid>/edit")
+def show_edit_tag(tagid):
+    """show form to edit tag"""
+    tag = Tag.query.get(tagid)
+    return render_template("edittag.html", tag=tag)
+
+
+# Route MM7
+@app.route("/tags/<int:tagid>/edit", methods=["POST"])
+def process_edit_tag(tagid):
+    """process form to edit tag"""
+    tag = Tag.query.get(tagid)
+    tag.name = request.form["tagname"]
+    db.session.add(tag)
+    db.session.commit()
+    return redirect("/tags")

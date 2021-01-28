@@ -4,13 +4,15 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {% block title %} {% endblock%}
+        <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
         <link rel="stylesheet" href="/static/app.css" />
     </head>
     <body>
         <div id="main">
             <div class="center">
                 <h1>Blogly</h1>
-                <a href="/users">Return to user list</a>
+                <a href="/users">Return to user list</a><br />
+                <a href="/tags">Return to tag list</a>
                 {% with messages = get_flashed_messages() %} {% if messages %}
                 <ul class="flashes">
                     {% for message in messages %}

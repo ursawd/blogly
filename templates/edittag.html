@@ -2,5 +2,17 @@
 <title>Edit Tag</title>
 {% endblock%} {% block content %}
 <h2>Edit a tag</h2>
-
-{% endblock
+<form action="/tags/{{tag.id}}/edit" method="post">
+    <label for="tagname">Name</label>
+    <input
+        type="text"
+        name="tagname"
+        id="tagname"
+        placeholder="Enter a name for the tag"
+        autofocus
+        value="{{tag.name}}"
+    />
+    <a href="/tags"><button type="button">Cancel</button></a>
+    <button type="submit">Save Changes</button>
+</form>
+{% endblock %}
