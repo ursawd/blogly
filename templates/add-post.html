@@ -10,6 +10,20 @@
         <textarea name="content" id="content" rows="5"></textarea>
         <button type="submit">Add</button>
         <a href="/users/{{user.id}}"><button type="button">Cancel</button></a>
+        <br />
+        <div id="tags-list-add-post">
+            <br />
+            {% for tag in tags %}
+            <input
+                type="checkbox"
+                name="tags-on-post"
+                id="{{tag.name}}"
+                value="{{tag.name}}"
+            />
+            <label for="{{tag.name}}">{{tag.name}}</label>
+            <br />
+            {% endfor %}
+        </div>
     </form>
 </div>
 {% endblock %}

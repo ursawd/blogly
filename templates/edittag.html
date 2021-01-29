@@ -12,6 +12,29 @@
         autofocus
         value="{{tag.name}}"
     />
+    <div id="edit-tag-posts">
+        <ul>
+            {% for post in posts %} {% if post in tag.posts %}
+            <input
+                type="checkbox"
+                name="edit-tag-cb"
+                id="{{post.title}}"
+                value="{{post.title}}"
+                checked
+            />
+            {% else %}
+            <input
+                type="checkbox"
+                name="edit-tag-cb"
+                id="{{post.title}}"
+                value="{{post.title}}"
+            />
+            {% endif %}
+            <label for="{{post.title}}">{{post.title}}</label>
+            <br />
+            {% endfor %}
+        </ul>
+    </div>
     <a href="/tags"><button type="button">Cancel</button></a>
     <button type="submit">Save Changes</button>
 </form>

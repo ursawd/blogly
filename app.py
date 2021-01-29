@@ -1,7 +1,7 @@
 """Blogly application."""
 
 from flask import Flask, request, redirect, render_template, flash
-from models import db, connect_db, User, Post, Tag
+from models import db, connect_db, User, Post, Tag, PostTag
 from datetime import datetime
 
 app = Flask(__name__)
@@ -22,7 +22,6 @@ debug = DebugToolbarExtension(app)
 @app.errorhandler(404)
 # inbuilt function which takes error as parameter
 def not_found(e):
-    print(e)
     return render_template("404.html")
 
 
@@ -117,7 +116,8 @@ def delete(user_id):
 def new_post_form(user_id):
     """Display new post form"""
     user = User.query.get(user_id)
-    return render_template("add-post.html", user=user)
+    tags = Tag.query.all()
+    return render_template("add-post.html", user=user, tags=tags)
 
 
 # Route P2
@@ -128,9 +128,17 @@ def new_post(user_id):
     title = request.form["title"]
     content = request.form["content"]
     fk = user_id
+    tagslist = request.form.getlist("tags-on-post")
     post = Post(title=title, content=content, user_id=fk)
     db.session.add(post)
     db.session.commit()
+    # add entry(s) into posts_tags table
+    for tagname in tagslist:
+        tag = Tag.query.filter_by(name=tagname).first()
+        entry = PostTag(post_id=post.id, tag_id=tag.id)
+        db.session.add(entry)
+    db.session.commit()
+    #
     return render_template("detail-user.html", user=user)
 
 
@@ -139,7 +147,8 @@ def new_post(user_id):
 def show_post_form(post_id):
     """Display post"""
     post = Post.query.get(post_id)
-    return render_template("detail-post.html", post=post)
+    tags = post.tags
+    return render_template("detail-post.html", post=post, tags=tags)
 
 
 # Route P4
@@ -147,8 +156,9 @@ def show_post_form(post_id):
 def show_post_edit(post_id):
     """Display post edit form"""
     post = Post.query.get(post_id)
+    tags = Tag.query.all()
     # display user edit form
-    return render_template("edit-post.html", post=post)
+    return render_template("edit-post.html", post=post, tags=tags)
 
 
 # Route P5
@@ -159,6 +169,18 @@ def update_post(post_id):
     post.title = request.form["title"]
     post.content = request.form["content"]
     db.session.add(post)
+    db.session.commit()
+    # turn off all tags for post posts_tags table
+    cleartags = PostTag.query.filter_by(post_id=post.id).all()
+    for entry in cleartags:
+        db.session.delete(entry)
+    db.session.commit()
+    # add current tags to post
+    currenttags = request.form.getlist("tagname")  # from html form checkbox(s)
+    for tag in currenttags:
+        tagfromtable = Tag.query.filter_by(name=tag).first()
+        newtag = PostTag(post_id=post.id, tag_id=tagfromtable.id)
+        db.session.add(newtag)
     db.session.commit()
     return redirect(f"/posts/{post.id}")
 
@@ -188,17 +210,29 @@ def list_tags():
 @app.route("/tags/new")
 def add_tag():
     """Add a tag"""
-    return render_template("addtag.html")
+    # get posts to display on Create A Tag webform
+    posts = Post.query.all()
+    return render_template("addtag.html", posts=posts)
 
 
 # Route MM3
 @app.route("/tags/new", methods=["POST"])
 def process_add_tag():
     """Process add a tag"""
+    # add tag to tags table
     tag = request.form["tagname"]
     tagname = Tag(name=tag)
     db.session.add(tagname)
     db.session.commit()
+    # add tag to selected posts (via checkbox)
+    selectedposts = request.form.getlist("postfortags")
+    for title in selectedposts:
+        post = Post.query.filter_by(title=title).first()
+        newtag = Tag.query.filter_by(name=tag).first()
+        entry = PostTag(post_id=post.id, tag_id=newtag.id)
+        db.session.add(entry)
+    db.session.commit()
+    #
     return redirect("/tags")
 
 
@@ -228,15 +262,33 @@ def delete_tag(tagid):
 def show_edit_tag(tagid):
     """show form to edit tag"""
     tag = Tag.query.get(tagid)
-    return render_template("edittag.html", tag=tag)
+    # post w/ selected tag
+    posts = Post.query.all()
+    return render_template("edittag.html", tag=tag, posts=posts)
 
 
 # Route MM7
 @app.route("/tags/<int:tagid>/edit", methods=["POST"])
 def process_edit_tag(tagid):
     """process form to edit tag"""
+    # add new tag to db
     tag = Tag.query.get(tagid)
     tag.name = request.form["tagname"]
     db.session.add(tag)
     db.session.commit()
+    # remove entry from posts_tags table for all post w/ selected tag
+    newtag = Tag.query.get(tagid)
+    entries = PostTag.query.filter_by(tag_id=newtag.id).all()
+    for entry in entries:
+        db.session.delete(entry)
+    db.session.commit()
+    #
+    #
+    # make entry for selected posts and selected tag
+    titles = request.form.getlist("edit-tag-cb")
+    for title in titles:
+        post = Post.query.filter_by(title=title).first()
+        entrynew = PostTag(post_id=post.id, tag_id=newtag.id)
+        db.session.add(entrynew)
+        db.session.commit()
     return redirect("/tags")

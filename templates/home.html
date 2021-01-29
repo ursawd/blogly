@@ -10,4 +10,11 @@
 <p>{{ post.content}}</p>
 <br />
 <p><small>By: {{post.user_prox.full_name}} on {{post.friendly_date}}</small></p>
+<br />
+<div class="tagsonpost">
+    <h4 id="tags-title">Tags:</h4>
+    {% for tag in post.tags%}
+    <button class="post-tags">{{tag.name}}</button>
+    {% endfor%}
+</div>
 {% endfor %} {% endblock %}

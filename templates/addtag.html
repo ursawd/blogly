@@ -11,6 +11,18 @@
         placeholder="Enter a name for the tag"
         autofocus
     />
+    <div>
+        {% for post in posts %}
+        <input
+            type="checkbox"
+            name="postfortags"
+            id="{{post.title}}"
+            value="{{post.title}}"
+        />
+        <label for="postfortags">{{post.title}}</label>
+        <br />
+        {% endfor %}
+    </div>
     <a href="/tags"><button type="button">Cancel</button></a>
     <button type="submit">Add</button>
 </form>

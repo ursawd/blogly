@@ -7,7 +7,14 @@
 {% block content%}
 <h2 class="form-name">{{post.title}}</h2>
 <p>{{post.content}}</p>
-<p id="by">By: {{post.user_prox.full_name}}</p>
+<p id="by">By: {{post.user_prox.full_name}} on {{post.friendly_date}}</p>
+
+<div class="tagsonpost">
+    <h4 id="tags-title">Tags:</h4>
+    {% for tag in tags%}
+    <button class="post-tags">{{tag.name}}</button>
+    {% endfor%}
+</div>
 
 <div id="edit-btns">
     <a href="/users/{{post.user_prox.id}}"

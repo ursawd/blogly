@@ -3,7 +3,7 @@
 {% endblock %} {% block content%}
 <div id="edit-post-form">
     <h2 class="form-name">Edit Post</h2>
-    <form action="#" method="post">
+    <form action="/posts/{{post.id}}/edit" method="post">
         <label for="title">Title</label>
         <input type="text" name="title" id="title" value="{{post.title}}" />
         <label for="content">Post Content</label>
@@ -13,6 +13,27 @@
             id="content"
             value="{{post.content}}"
         />
+        <div>
+            {% for tag in tags%} {% if tag in post.tags %}
+            <input
+                type="checkbox"
+                name="tagname"
+                id="{{tag.name}}"
+                value="{{tag.name}}"
+                checked
+            />
+            {% else %}
+            <input
+                type="checkbox"
+                name="tagname"
+                id="{{tag.name}}"
+                value="{{tag.name}}"
+            />
+            {% endif%}
+            <label for="{{tag.name}}">{{tag.name}}</label>
+            <br />
+            {% endfor %}
+        </div>
         <button type="submit">Save</button>
         <a href="/posts/{{post.id}}"><button type="button">Cancel</button></a>
     </form>
