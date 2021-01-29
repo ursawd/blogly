@@ -1,6 +1,6 @@
 from app import app
 from unittest import TestCase
-from models import User, Post
+from models import User, Post, Tag, PostTag, db
 
 
 class UserTests(TestCase):
@@ -9,7 +9,7 @@ class UserTests(TestCase):
     def test_initial_page(self):
         with app.test_client() as client:
             resp = client.get("/")
-            self.assertEqual(resp.status_code, 302)
+            self.assertEqual(resp.status_code, 200)
 
     def test_add_user(self):
         with app.test_client() as client:
@@ -98,3 +98,19 @@ class UserTests(TestCase):
             self.assertIsNone(user)
             post = Post.query.filter_by(title="New Post").one_or_none()
             self.assertIsNone(post)
+
+            # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    def test_add_tag(self):
+        with app.test_client() as client:
+            # add new tag to test against
+            resp = client.post(
+                "/tags/new",
+                follow_redirects=True,
+                data={"tagname": "XYZ"},
+            )
+            tag_record = Tag.query.filter_by(name="XYZ").first()
+            self.assertEqual(tag_record.name, "XYZ")
+            # tear down
+            db.session.delete(tag_record)
+            db.session.commit()
